@@ -1,0 +1,1313 @@
+\documentclass[a4paper,12pt,oneside,openany]{book}
+
+\usepackage[ngerman]{babel}
+\usepackage{blindtext}
+\usepackage{anyfontsize}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[no-math]{fontspec}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{calc}
+\usepackage{fancyhdr}
+\usepackage{titletoc,tocloft}
+\usepackage{lastpage}
+\usepackage{ifthen}
+\usepackage{tikz}
+\usepackage{thmbox}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{amsfonts}
+\usepackage{scrextend}
+\usepackage{array}
+\usepackage{stackengine}
+\usepackage{multirow}
+\usepackage{csquotes}
+\usepackage{contour}
+\usepackage{ulem}
+\usepackage{amsmath}
+\usepackage{parskip}
+\usepackage{marvosym}
+
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{pgfplots}
+
+\pgfplotsset{width=9cm}
+% \usepgfplotslibrary{external}
+% \tikzexternalize
+
+\newcommand{\pipe}{\;|\;}
+
+\renewcommand{\baselinestretch}{1.5}
+
+\setcounter{secnumdepth}{3}
+
+\setlength{\parskip}{5pt}
+
+\titleformat{\chapter}[hang]{\normalfont\Huge\bfseries}{\thechapter}{1cm}{}[\titlerule]
+\titlespacing*{\chapter}{0cm}{0cm}{0.5cm}
+
+\titleformat{\section}[hang]{\normalfont\Large\bfseries}{\thesection}{0.5cm}{}[]
+\titlespacing*{\section}{0cm}{0.5cm}{0.3cm}
+
+\titleformat{\subsection}[hang]{\normalfont\large\bfseries}{\thesubsection}{0.5cm}{}[]
+\titlespacing*{\subsection}{0cm}{0.5cm}{0.3cm}
+
+\titleformat{\subsubsection}[hang]{\normalfont\large\bfseries}{\thesubsubsection}{0.5cm}{}[]
+\titlespacing*{\subsubsection}{0cm}{0.5cm}{0.2cm}
+
+\newcommand{\pskip}{\vspace{12pt}}
+\newcommand{\lskip}{\vspace{2mm}}
+\newcommand{\textspaced}[1]{\hspace{3mm}#1\hspace{3mm}}
+
+\pagestyle{fancy}
+\fancypagestyle{plain}{}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead{}
+\fancyfoot[R]{\thepage}
+
+\graphicspath{ {./images/} }
+
+\setlength{\parindent}{0pt}
+
+\setsansfont{LINETO-BROWN-PRO-LIGHT.TTF}[
+BoldFont = LINETO-BROWN-PRO-REGULAR.TTF ,
+ItalicFont = LINETO-BROWN-PRO-LIGHT.TTF ,
+BoldItalicFont = LINETO-BROWN-PRO-REGULAR.TTF ]
+
+\renewcommand\familydefault{\sfdefault}
+
+\definecolor{fhblue}{RGB}{0, 20, 160}
+
+\setlist[enumerate]{label=\arabic*), itemsep=-2pt}
+\setlist[itemize]{itemsep=-2pt}
+
+\renewcommand{\ULdepth}{2pt}
+\contourlength{1pt}
+
+\newcommand{\myul}[1]{
+  \uline{\phantom{#1}}\llap{\contour{white}{#1}}
+}
+
+\newcounter{definition}[chapter]
+
+\newenvironment{leftrule}{\normalfont\normalsize\begin{addmargin}[-3.5mm]{0cm}\begin{leftbar}\vspace{1.5mm}\begin{addmargin}[4mm]{0cm}}{\end{addmargin}\end{leftbar}\end{addmargin}}
+\newenvironment{definition}[1][]{\refstepcounter{definition}\vspace{5mm}\bfseries\large Definition \thechapter.\thedefinition \ifthenelse{\equal{#1}{}}{}{: #1}\begin{leftrule}}{\end{leftrule}}
+\newenvironment{satz}[1][]{\refstepcounter{definition}\vspace{5mm}\bfseries\large Satz \thechapter.\thedefinition\ifthenelse{\equal{#1}{}}{}{: #1}\begin{leftrule}}{\end{leftrule}}
+\newenvironment{benanntersatz}[1][]{\refstepcounter{definition}\vspace{5mm}\bfseries\large\thechapter.\thedefinition #1\begin{leftrule}}{\end{leftrule}}
+\newenvironment{beispiele}[1][]{\vspace{2mm}\normalfont\normalsize \textbf{Beispiele}\ifthenelse{\equal{#1}{}}{:}{: #1}\begin{enumerate}[label=\arabic*)]}{\end{enumerate}}
+\newenvironment{beispielenolist}[1][]{\vspace{2mm}\normalfont\normalsize \textbf{Beispiele}\ifthenelse{\equal{#1}{}}{:}{: #1}\newline\vspace{-8mm}\begin{addmargin}[5mm]{0cm}}{\end{addmargin}}
+\newenvironment{beispiel}[1][]{\vspace{2mm}\normalfont\normalsize \textbf{Beispiel}\ifthenelse{\equal{#1}{}}{:}{: #1}\newline\vspace{-8mm}\begin{addmargin}[5mm]{0cm}}{\end{addmargin}}
+\newenvironment{bemerkung}[1][]{\vspace{2mm}\normalfont\normalsize \textbf{Bemerkung}\ifthenelse{\equal{#1}{}}{:}{: #1}\newline\vspace{-8mm}\begin{addmargin}[5mm]{0cm}}{\end{addmargin}}
+\newenvironment{bemerkungen}[1][]{\vspace{2mm}\normalfont\normalsize \textbf{Bemerkungen}\ifthenelse{\equal{#1}{}}{:}{: #1}\begin{enumerate}[label=\arabic*)]}{\end{enumerate}}
+\newenvironment{bemerkungennolist}[1][]{\vspace{2mm}\normalfont\normalsize \textbf{Bemerkungen}\ifthenelse{\equal{#1}{}}{:}{: #1}\newline\vspace{-8mm}\begin{addmargin}[5mm]{0cm}}{\end{addmargin}}
+\newenvironment{bemerkungenbsp}[1][]{\vspace{2mm}\normalfont\normalsize \textbf{Bemerkungen und Beispiele}\ifthenelse{\equal{#1}{}}{:}{: #1}\begin{enumerate}[label=\arabic*)]}{\end{enumerate}}
+\newenvironment{bemerkungenbspnolist}[1][]{\vspace{2mm}\normalfont\normalsize \textbf{Bemerkungen und Beispiele}\ifthenelse{\equal{#1}{}}{:}{: #1}\newline\vspace{-8mm}\begin{addmargin}[5mm]{0cm}}{\end{addmargin}}
+
+\newcommand{\begriff}[1]{\myul{#1}}
+
+% \newcommand{\überschrift}[1]{\vspace{5mm}\large\textbf{#1}\vspace{2mm}\normalsize}
+\newcommand{\überschrift}[1]{\subsubsection{#1}}
+
+\author{Frederik Sicking}
+\title{Mathematik 1 Mitschrift}
+
+\begin{document}
+
+\begin{titlepage}
+
+	\includegraphics[height=0.45in]{logo}
+	\hspace{\fill}
+	\includegraphics[height=0.45in]{ETI-logo}
+
+	\vspace*{5cm}
+	\fontsize{36}{36}\selectfont \textbf{Mathematik 1}\\
+	\fontsize{28}{28}\selectfont \textcolor{fhblue}{\textbf{Mitschrift}}
+
+	\vspace{1.5cm}
+	\fontsize{20}{20}\selectfont Frederik Sicking
+
+	\vspace{\fill}
+	\begin{flushright}
+
+		\fontsize{12}{15}\selectfont
+		Modul: \textbf{Mathematik 1} \\
+		\textbf{Prof. Dr. Gernot Bauer}
+
+		\vspace{0.5cm}
+		Wintersemester 2022 / 2023 \\
+		Stand: Freitag, 11.11.2022
+
+		\vspace{1.5cm}
+		\textbf{Frederik Sicking}\\
+		\vspace{0.5cm}
+		frederik.sicking@fh-muenster.de
+
+	\end{flushright}
+\end{titlepage}
+
+\frontmatter
+\pagenumbering{Roman}
+
+% \chapter*{Vorwort}
+% \setcounter{page}{1}
+% \blindtext[2]
+% \newpage
+
+\setcounter{tocdepth}{3}
+\setlength{\cftsecindent}{5mm}
+\setlength{\cftsubsecindent}{1cm}
+\setlength{\cftsubsubsecindent}{1.5cm}
+\tableofcontents
+
+\mainmatter
+\chapter{Grundlagen}
+\setcounter{page}{1}
+\section{Aussagelogik}
+Im Unterschied zur Umgangssprache benutzt die Mathematik eine sehr
+präzise Sprechweise, die wir hier einführen wollen.
+
+\subsection{Aussagen}
+Sachverhalte der Realität werden in Form von Aussagen erfasst.
+
+\begin{definition}[Aussage]
+	Unter einer \begriff{Aussage} versteht man ein sinnvolles sprachliches Gebilde,
+	das entweder wahr oder falsch sein kann.
+\end{definition}
+
+\begin{beispielenolist}
+	\vspace*{-5mm}
+	\begin{tabular}{p{0.05\textwidth}m{0.7\textwidth}>{\centering\arraybackslash}p{0.2\textwidth}}
+		   &                                           & ist Aussage \\
+		1) & 5 ist kleiner als 3.                      & ja          \\
+		2) & Kiew ist die Hauptstadt der Ukraine.      & ja          \\
+		3) & Das Studium der Mathematik ist schwierig. & ja          \\
+		4) & Nach dem Essen Zähne putzen!              & nein        \\
+		5) & Nachts ist es kälter als draußen.         & nein
+	\end{tabular}
+\end{beispielenolist}
+
+\newcommand{\wahr}{\textrm{wahr}}
+\newcommand{\falsch}{\textrm{falsch}}
+\pskip
+Die Werte \begriff{\wahr} und \begriff{\falsch} heißen Warheitswerte. Jede Aussage hat genau
+einen dieser beiden Warheitswerte. Das heißt aber nicht, dass der Warheitswert
+auch bekannt ist.
+
+\newpage
+\begin{beispielenolist}[Fortsetzung]
+	\vspace*{-5mm}
+	\begin{tabular}{p{0.05\textwidth}p{0.7\textwidth}>{\centering\arraybackslash}p{0.2\textwidth}}
+		   &                                                                                    & ist Aussage \\
+		6) & Der Sommer 2023 wird erneut der heißeste in Europa seit Beginn der Aufzeichnungen. & ja          \\
+		7) & Jede gerade Zahl größer 2 ist Summe zweier Primzahlen. (Goldbachsche Vermutung)    & ja
+	\end{tabular}
+\end{beispielenolist}
+
+\begin{bemerkung}
+	Eine Aussage, die einen mathematischen Sachverhalt beschreibt und \wahr ~ist, wird als \begriff{Satz} bezeichnet.
+\end{bemerkung}
+
+\subsection{Verknüpfung von Aussagen}
+Im folgenden Stehen lateinische Großbuchstaben \( A, B, C, \dots \) als Platzhalter (Variablen) für Aussagen.
+
+\überschrift{Die \textquote{und}-Verknüpfung (Konjugation)}
+
+Eine zusammengesetzte Aussage der Form
+\begin{align*}
+	A \textrm{~und~} B & \hspace*{1.5cm}\textsf{(Kurzbezeichnung:~} A \land B \textsf{)}
+\end{align*}
+ist \wahr, wenn beide Aussagen \wahr~sind. Andernfalls ist sie \falsch.
+
+\newcommand{\w}{\textrm{w}}
+\newcommand{\f}{\textrm{f}}
+
+Der Warheitswert der zusammengesetzten Aussage in Abhängigkeit von \( A \) und \( B \) kann durch folgende
+\begriff{Verknüpfungstabelle} (oder \begriff{Wahrheitstafel}) ausgedrückt werden. (\w~für \wahr, \f~für \falsch)
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{c | c | c}
+		\( A \) & \( B \) & \( A \land B \) \\
+		\hline
+		\w      & \w      & \w              \\
+		\w      & \f      & \f              \\
+		\f      & \w      & \f              \\
+		\f      & \f      & \f
+	\end{tabular}
+\end{table}
+
+\newpage
+\begin{beispiel}[\textquote{und}]
+	\vspace{-1.5cm}
+	\begin{align*}
+		A & : \textsf{7 ist ungerade.}                                        & (\wahr)   \\
+		B & : \textsf{17 < 4}                                                 & (\falsch) \\
+		C & : \textsf{Für alle reellen Zahlen~} x \textsf{~gilt:~} x^2 \geq 0 & (\wahr)
+	\end{align*}
+	Die Aussage \textquote{7 ist ungerade und 17 < 4} (\( A \land B \)) ist \falsch.
+	Die Aussage \( A \land C \) ist \wahr.
+\end{beispiel}
+
+\überschrift{Die \textquote{oder}-Verknüpfung (Alternative, Disjunktion)}
+
+Eine zusammengesetzte Aussage der Form
+\begin{align*}
+	A \textrm{~oder~} B & \hspace*{1.5cm}\textsf{(Kurzbezeichnung:~} A \lor B \textsf{)}
+\end{align*}
+ist \wahr, wenn mindestens  eine der beiden Aussagen \wahr~ist. Sind beide
+Aussagen \falsch, dann ist auch die zusammengesetzte Aussage \( A \lor B\) \falsch. Wahrheitstafel:
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{c | c | c}
+		\( A \) & \( B \) & \( A \lor B \) \\
+		\hline
+		\w      & \w      & \w             \\
+		\w      & \f      & \w             \\
+		\f      & \w      & \w             \\
+		\f      & \f      & \f
+	\end{tabular}
+\end{table}
+
+\begin{beispiel}[\textquote{oder}]
+	\vspace{-1.5cm}
+	\begin{align*}
+		A & : \textsf{Allerheiligen ist am 1.11.} & (\wahr)                                       \\
+		B & : \textsf{Die Erde ist eine Scheibe.} & (\falsch)                                     \\
+		C & : \textsf{Heute ist Montag.}          & (\wahr / \falsch \textsf{~je nach Wochentag})
+	\end{align*}
+	Die Aussage \textquote{Allerheiligen ist am 1.11. oder die Erde ist eine Scheibe} (\( A \lor B \)) ist \wahr,
+	die Aussage \( A \lor C \) ist ebenfalls immer \wahr. \( B \lor C \) ist dagegen nur an einem Montag \wahr, sonst \falsch.
+\end{beispiel}
+
+\begin{bemerkung}
+	Im Alltagssprachgebrauch trifft man häufig auf die Verknüpfung von Aussagen mit
+	\textquote{und/oder}, etwa \textquote{Ich komme heute und/oder morgen}.
+	Mathematisch ist das nicht sinnvoll, ein einfaches \textquote{\textrm{oder}} drückt den Sachverhalt
+	bereits treffend aus.
+\end{bemerkung}
+
+\newpage
+\überschrift{Die Negation (\textquote{nicht})}
+
+Eine Aussage der Form
+\begin{align*}
+	\textrm{nicht~} A & \hspace*{1.5cm}\textsf{(Kurzbezeichnung:~} \lnot A \textsf{)}
+\end{align*}
+ist \wahr, wenn \( A \) \falsch~ist. Sie ist \falsch, wenn \( A \) \wahr~ist.
+Die Aussage \( \lnot A \) heißt die \begriff{Negation} von \( A \). Wahrheitstafel:
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{c | c }
+		\( A \) & \( \lnot A \) \\
+		\hline
+		\w      & \f            \\
+		\f      & \w
+	\end{tabular}
+\end{table}
+
+Die Negation (oder Verneinung) kehrt den Warheitswert einer Aussage um.
+
+\überschrift{Die \textquote{wenn-dann}-Verknüpfung (Implikation, Schlussfolgerung)}
+
+Eine zusammengesetzte Aussage der Form
+\begin{align*}
+	A \textrm{~impliziert~} B & \hspace*{1.5cm}\textsf{(Kurzbezeichnung:~} A \implies B \textsf{)}
+\end{align*}
+ist \falsch, falls \( A \) \wahr~und \( B \) \falsch~ist.
+Andernfalls ist sie \wahr. Wahrheitstafel:
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{c | c | c}
+		\( A \) & \( B \) & \( A \implies B \) \\
+		\hline
+		\w      & \w      & \w                 \\
+		\w      & \f      & \f                 \\
+		\f      & \w      & \w                 \\
+		\f      & \f      & \w
+	\end{tabular}
+\end{table}
+
+Weitere übliche Sprechweisen für \(A \implies B\) sind:
+\begin{itemize}
+	\item Wenn \(A\) gilt, dann gilt (auch) \(B\).
+	\item Aus \(A\) folgt \(B\).
+	\item Aus \(A\) kann man \(B\) schlussfolgern. \newpage
+	\item \(A\) ist hinreichend für \(B\).
+	\item \(A\) ist eine hinreichende Bedingung für \(B\).
+	\item \(B\) ist notwendig für \(A\).
+	\item \(B\) ist eine notwendige Bedingung für \(A\).
+\end{itemize}
+
+\begin{beispiele}
+	\item\mbox{}\vspace*{-1cm}\begin{align*}
+		A & : \textsf{Weihnachten ist am 25.12.}          & (\wahr)   \\
+		B & : \textsf{Ich fresse einen Besen.}            & (\falsch) \\
+		C & : \textsf{Weihnachten fällt auf Ostern.}      & (\falsch) \\
+		D & : \textsf{Die Goldbachsche Vermutung stimmt.} & (?)
+	\end{align*}
+	Die Aussage \textquote{Wenn Weihnachten am 25.12. ist, dann fresse ich einen Besen}
+	(\(A \implies B\)) ist \falsch.
+
+	Dagegen ist die Aussage \textquote{Wenn Weihnachten auf Ostern fällt, dann fresse ich einen Besen}
+	(\(C \implies D\)) \wahr!
+
+	Die Aussage \(D \implies A\) ist \wahr, unabhängig davon, ob Goldbach recht hatte. (\(D\) ändert
+	nichts daran, dass Weihnachten am 25.12. ist.)
+
+	\item\mbox{}\vspace*{-1cm}\begin{align*}
+		A & : \textsf{Es regnet.}           \\
+		B & : \textsf{Die Straße ist nass.}
+	\end{align*}
+	Die Implikation \(A \implies B\) ist \wahr. Wenn es regnet, dann ist die Straße nass. Also
+	ist \(A\) hinreichend für \(B\).
+
+	Zugleich ist \(B\) notwendig für \(A\), denn:
+
+	Wenn die Straße nicht nass ist, dann regnet es nicht.
+
+	\(A\) ist allerdings nicht notwendig für \(B\): Die Straße kann auch nass werden, ohne dass
+	es regnet.
+\end{beispiele}
+
+\begin{bemerkung}
+	Es mag überraschen, dass Schlussfolgerungen aus falschen Voraussetzungen immer wahr sind.
+	Anders ausgedrückt:
+
+	Aus einer falschen Voraussetzung kann man jede beliebige Behauptung schlussfolgern, sei
+	diese Behauptung auch wahr oder falsch.
+
+	Zum Beispiel kann man aus der Voraussetzung \textquote{\(0 = 1\)} die Behauptung
+	\textquote{Einstein ist der Papst} schlussfolgern.
+\end{bemerkung}
+
+\überschrift{Die \textquote{genau-dann-wenn}-Verknüpfung (Äquivalenz)}
+
+Eine zusammengesetzte Aussage der Form
+\newcommand{\equivalent}{\Longleftrightarrow}
+\begin{align*}
+	A \textrm{~ist äquivalent zu~} B & \hspace*{1.5cm}\textsf{(Kurzbezeichnung:~} A \equivalent B \textsf{)}
+\end{align*}
+bedeutet, dass die Warheitswerte von \(A\) und \(B\) gleich sind. Wahrheitstafel:
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{c | c | c}
+		\( A \) & \( B \) & \( A \equivalent B \) \\
+		\hline
+		\w      & \w      & \w                    \\
+		\w      & \f      & \f                    \\
+		\f      & \w      & \f                    \\
+		\f      & \f      & \w
+	\end{tabular}
+\end{table}
+
+Weitere übliche Sprechweisen für \(A \equivalent B\) sind:
+\begin{itemize}
+	\item \(A\) gilt genau dann, wenn \(B\) gilt.
+	\item \(A\) gilt dann und nur dann, wenn \(B\) gilt.
+	\item \(A\) ist gleichbedeutend mit \(B\).
+	\item \(A\) impliziert \(B\) und \(B\) impliziert \(A\).
+	\item \(A\) ist notwendig und hinreichend für \(B\).
+	\item \(B\) ist notwendig und hinreichend für \(A\).
+\end{itemize}
+
+\begin{beispiel}
+	Es sei \(m\) eine ganze Zahl.
+	\begin{align*}
+		A & : m \textsf{~ist durch~} 6 \textsf{~teilbar.}                        \\
+		B & : m \textsf{~ist durch~} 2 \textsf{~und durch~} 3 \textsf{~teilbar.}
+	\end{align*}
+	Es gilt \(A \equivalent B\).
+\end{beispiel}
+
+\überschrift{Komplizierte Verknüpfungen}
+
+Aus gegebenen Aussagen können durch Zusammensetzen schrittweise komplizierte Aussagen
+aufgebaut werden, zum Beispiel:
+\begin{gather*}
+	A \implies (B \lor C) \\
+	\lnot(A \equivalent (B \lor (\lnot C)))
+\end{gather*}
+Ähnlich wie in der Zahlenalgebra (zum Beispiel \textquote{Punkt vor Strich}) gibt es auch
+in der Aussagelogik Klammerkonventionen und eine Rangfolge der Verknüpfungssymbole:
+
+\(\lnot\) bindet stärker als \(\land\), \(\lor\),
+
+\(\land\), \(\lor\) binden stärker als \(\implies\), \(\equivalent\).
+
+Damit gilt zum Beispiel:
+\begin{align*}
+	((\lnot A) \land B) & \equivalent (\lnot(C \lor D)) \\
+	                    & \;\;\Updownarrow              \\
+	\lnot A \land B     & \equivalent \lnot (C \lor D)
+\end{align*}
+
+\subsection{Beweistechniken}
+
+In Beweisen wird stets aus der Gültigkeit einer Bestimmten Aussage, der \begriff{Voraus-}
+\begriff{setzung} oder \begriff{Prämisse}, auf die Gültigkeit einer anderen Aussage, der \begriff{Folgerung} oder
+\begriff{Konklusion} geschlossen. Bei einem Beweis wird also gezeigt, dass eine Aussage der Form
+\(A \implies B\) \wahr ~ist, wobei vorab bekannt ist, dass die Prämisse \(A\) \wahr ~ist.
+
+Nach der Abtrennungsregel (Modus ponens, vgl. Übung 7 h) )
+\[
+	((A \implies B) \land A) \implies B
+\]
+ist damit bewiesen, dass die Aussage \(B\), die Konklusion, wahr ist. Diese Art des logischen
+Schließens heißt \begriff{Deduktion}.
+
+Bei einer deduktiven Beweisführung sollte immer möglichst klar sein, was zu beweisen ist (die
+Konklusion \(B\)), was vorausgesetzt wird (die Prämisse \(A\)) und wie der Übergang \(A \implies B\),
+die \begriff{Argumentation}, verläuft. Argumente werden im Deutschen häufig mit Wörtern wie
+\textquote{also}, \textquote{demnach}, \textquote{folglich} oder \textquote{somit} eingeleitet.
+
+\newcommand{\qed}{
+	\vspace*{-8mm}
+	\begin{flushright}
+		$\blacksquare$
+	\end{flushright}
+}
+Das Ende eines Beweises wird häufig mit dem Zeichen \textquote{$\blacksquare$} gekennzeichnet.
+
+\überschrift{Der direkte Beweis}
+
+Ein \begriff{direkter Beweis} liegt vor, wenn \(A \implies B\) mit Hilfe von Zwischenaussagen
+\(A_1,A_2,\dots,A_n\) in Form einer Argumentationskette
+\[
+	A \implies A_1 \implies A_2 \implies \dots \implies A_n \implies B
+\]
+gezeigt wird.
+
+\begin{beispiel}
+	Zu zeigen:
+
+	$\left. \parbox{\linewidth - 2.3cm}{
+			Die Summe der Innenwinkel im regelmäßigen Fünfeck ist 540°.
+		} \,\right\} B $
+
+	Beweis:
+
+	$\left. \parbox{\linewidth - 2.3cm}{
+			Die Summe der Innenwinkel eines Dreiecks beträgt 180°.
+		} \,\right\} A $
+
+	\pskip
+	$\left. \parbox{\linewidth - 2.3cm}{
+			Folglich ist die Summe der Innenwinkel fünf beliebiger Dreiecke\\
+			\(5 \cdot 180^\circ  = 900^\circ\).
+		} \,\right\} \implies A_1 $
+
+	\pskip
+	$\left. \parbox{\linewidth - 2.3cm}{
+			Also ist auch die Summe der Innenwinkel der fünf deckungsgleichen Dreiecke,
+			in die sich das regelmäßige Fünfeck unterteilen lässt, 900°.
+		} \,\right\} \implies A_2 $
+
+	\begin{center}
+		\vspace*{3mm}
+		\begin{tikzpicture}[scale=2]
+			\coordinate (M) at (0,0);
+			\coordinate (A) at (0,1);
+
+			\newcommand{\cone}{0.30901699437}
+			\newcommand{\ctwo}{0.80901699437}
+			\newcommand{\sone}{0.95105651629}
+			\newcommand{\stwo}{0.58778525229}
+
+			\coordinate (B) at ({\sone},{\cone});
+			\coordinate (C) at ({\stwo},{-\ctwo});
+			\coordinate (D) at ({-\stwo},{-\ctwo});
+			\coordinate (E) at ({-\sone},{\cone});
+
+			\draw (M) -- (A);
+			\draw (M) -- (B);
+			\draw (M) -- (C);
+			\draw (M) -- (D);
+			\draw (M) -- (E);
+
+			\draw (A) -- (B);
+			\draw (B) -- (C);
+			\draw (C) -- (D);
+			\draw (D) -- (E);
+			\draw (E) -- (A);
+
+			\draw (M) circle (0.2);
+		\end{tikzpicture}
+		\vspace*{5mm}
+	\end{center}
+
+	$\left. \parbox{\linewidth - 2.3cm}{
+			Die Innenwinkel dieser fünf Dreiecke, die am Mittelpunkt des Fünfecks liegen, betragen
+			zusammen 360°. Sie tragen nicht zur Summe der Innenwinkel des Fünfecks bei. Somit
+			ist diese Summe \(900^\circ - 360^\circ = 540^\circ\).
+		} \,\right\} \implies B $
+
+	\vspace*{6mm}
+	\qed
+
+\end{beispiel}
+
+\überschrift{Der indirekte Beweis (Beweis durch Wiederspruch, Reductio ad absurdum)}
+
+Häufig ist es leichter, statt der Schlussfolgerung \(A \implies B\) die
+Schlussfolgerung \(\lnot B \implies \lnot A\) zu zeigen.
+
+Nach der Kontraposition der Implikation (vgl. Übung 7 e) ) sind beide
+Schlussfolgerungen gleichbedeutend.
+
+Man leitet also ausgehend von der Annahme \(\lnot B\) einen Wiederspruch
+zu \(A\) ab.
+
+\begin{beispiel}
+	Zu zeigen:
+
+	$\left. \parbox{\linewidth - 2.3cm}{
+			Ein Dreieck, bei dem ein Innenwinkel 91° beträgt, ist
+			nicht rechtwinklig.
+		} \,\right\} B $
+
+	Beweis (durch Wiederspruch):
+
+	\pskip
+	$\left. \parbox{\linewidth - 2.3cm}{
+			Wir nehmen an, es gäbe ein rechtwinkliges Dreieck, bei dem
+			ein Innenwinkel 91° beträgt.
+		} \,\right\} \lnot B $
+
+	\pskip
+	$\left. \parbox{\linewidth - 2.3cm}{
+			Folglich hat das Dreieck einen Innenwinkel, der 90° beträgt,
+			und einen Innenwinkel, der 91° beträgt. Demnach ist die
+			Summe der Innenwinkel des Dreiecks größer 180°.
+		} \,\right\} \implies \lnot A $
+
+	\pskip
+	Das ist ein Wiederspruch dazu, dass die Summe der Innenwinkel eines
+	Dreiecks 180° beträgt. Somit ist die obige Annahme (\(\lnot B\)) \falsch
+	~und die ursprüngliche Behauptung (\(B\)) bewiesen.
+
+	\qed
+
+\end{beispiel}
+
+\newpage
+\section{Mengen, Relationen und Abbildungen}
+
+Zu den wichtigsten Grundpfeilern der Mathematik gehört der Mengenbegriff.
+
+\subsection{Mengenlehre}
+
+\begin{definition}[Menge (Cantor, 1895)]
+	Eine \begriff{Menge} ist eine beliebige Zusammenfassung
+	von bestimmten, wohlunterschiedenen Objekten unserer Anschauung
+	oder unseres Denkens zu einem Ganzen.
+\end{definition}
+
+\überschrift{Sprechweisen und Notationen}
+
+Mengen werden mit Großbuchstaben gekennzeichnet. Die Objekte der Menge
+\(M\) werden die \begriff{Elemente} von \(M\) genannt.
+
+Ist das Objekt x ein beziehungsweise kein Element von \(M\), so schreibt man
+\[x \in M \textsf{~bzw.~} x \notin M\]
+Zwei Mengen \(M\) und \(N\) heißen gleich, wenn sie genau die selben
+Elemente enthalten.
+\[x \in M \Longleftrightarrow x \in N\]
+Man schreibt dann \(M = N\). Sind \(M\) und \(N\) nicht
+gleich, schreibt man \(M \neq N\).
+
+Bei der \begriff{aufzählenden Schreibweise} zur Kennzeichnung von Mengen,
+zum Beispiel
+\begin{align*}
+	M & = \{a,e,i,o,u\}              \\
+	B & = \{-3,-2,-1,0,1,2,3,\dots\} \\
+	Y & = \{-2,5\}
+\end{align*}
+spielt die Reihenfolge keine Rolle.
+
+Die \begriff{beschreibende Schreibweise} hat die allgemeine Struktur
+\begin{alignat*}{3}
+	X                & = \{x       &  & \pipe x \textsf{~hat die Eigenschaft~} E             \} \textsf{~oder} \\
+	X                & = \{x \in G &  & \pipe x \textsf{~hat die Eigenschaft~} E             \} \textsf{,}     \\
+	\\
+	\textsf{z.B.~} M & = \{x       &  & \pipe x \textsf{~ist Vokal im deutschen Alphabet}    \} \textsf{,}     \\
+	B                & = \{x       &  & \pipe x \textsf{~ist eine ganze Zahl und~} x > -4    \} \textsf{,}     \\
+	Y                & = \{x \in B &  & \pipe x \textsf{~ist Lösung von~} (x+4)(x+2)(x-5)=0  \}
+\end{alignat*}
+
+Dabei wir der senkrechte Strich (\(\pipe\)) als \textquote{mit der Eigenschaft} gelesen, und \(G\)
+bezeichnet eine Grundmenge, der die Elemente x entstammen sollen.
+
+Eine Menge, die kein Element besitzt, heißt leere Menge, und wird mit \(\emptyset\) oder \(\{ \; \}\)
+bezeichnet.
+
+In Vorgiff auf Kapitel 2 nennen wir hier einige Wichtige Zahlenmengen:
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\begin{alignat*}{3}
+	\R &                                                                        &  & \textsf{~die Menge der \begriff{reellen Zahlen}}     \\
+	\N & = \{1,2,3,\dots \}                                                     &  & \textsf{~die Menge der \begriff{natürlichen Zahlen}} \\
+	\Z & = \{\dots ,-3,-2,-1,0,1,2,3,4,\dots\}                                  &  &                                                      \\
+	   & = \{x \in \R \pipe x \in \N \lor x = 0 \lor -x \in \N\}                &  & \textsf{~die Menge der \begriff{ganzen Zahlen}}      \\
+	\Q & = \{x \in \R \pipe x = \frac{n}{p} \textsf{~mit~} n \in \Z, p \in \N\} &  & \textsf{~die Menge der \begriff{rationalen Zahlen}}
+\end{alignat*}
+
+\newpage
+Eine Menge \(M\) heißt \begriff{Teilmenge} der Menge \(N\), in Zeichen \(M \subset N\), wenn jedes
+Element von \(M\) auch Element von \(N\) ist.
+\[x \in M \implies x \in N \]
+Wir sagen dann auch: \(M\) ist in \(N\) enthalten, oder \(N\) ist \begriff{Obermenge} von \(M\).
+\begin{center}
+	\begin{tikzpicture}
+		\draw[black] (0,0) circle (2) node[text=black,text width=2.5cm] {\(N\)};
+		\draw[black, fill=fhblue] (0.5,0.5) circle (1) node[text=white] {\(M\)};
+	\end{tikzpicture}
+\end{center}
+Ist \(M\) nicht Teilmenge von \(N\), so schreibt man \(M \not\subset N\).
+
+\begin{bemerkungen}
+	\item \begin{samepage}
+		Mengen sind selbst wieder Objekte, das heißt sie können auch wieder zu Mengen zusammengefasst
+		werden, zum Beispiel:
+		\[M = \{\N,\Z,\Q,\R\}, \;\; N=\{\emptyset,1,\{1\}\}\]
+		\(M\) hat 4 Elemente, \(N\) hat 3 Elemente.
+
+		Einelementige Mengen der Form \(\{m\}\) und ihr Element \(m\) sind unterschiedliche Objekte.
+	\end{samepage}
+
+	\item \begin{samepage} Beziehungen zwischen Mengen wie zum Beispiel \(M \subset N\) lassen sich auch durch
+		Verknüpfungen von Aussagen über Elementzugehörigkeiten ausdrücken:
+		\[
+			M \subset N \Longleftrightarrow (\underbrace{x \in M}_A \implies \underbrace{x \in N}_B) \; \circledast \\
+		\]
+		\(M = N\) gilt genau dann, wenn \(M \subset N\) und \(N \subset M\) denn:
+		\stackMath
+		\[
+			\begin{array}{r @{\hspace*{3mm}} c @{\hspace*{3mm}} l}
+				M \subset N \land N \subset M & \stackon{\Longleftrightarrow}{\circledast}                   & (A \implies B) \land (B \implies A)   \\
+				                              & \stackon{\Longleftrightarrow}{\textsf{Tautologie}}           & (A \Longleftrightarrow B)             \\
+				                              & \stackon{\Longleftrightarrow}{\textsf{Def.~} A \textsf{,} B} & (x \in M \Longleftrightarrow x \in N) \\
+				                              & \stackon{\Longleftrightarrow}{\;}                            & M = N
+			\end{array}
+		\]
+	\end{samepage}
+
+	\item Für alle Mengen \(M\) gilt \(M \subset M\) und \(\emptyset \subset M\).
+\end{bemerkungen}
+
+\überschrift{Mengenoperationen}
+
+Der \begriff{Durchschnitt} zweier Mengen \(M\) und \(N\) (Kurzbezeichnung: \(M \cap N\)) ist die
+Menge der Elemente, die sowohl in \(M\) als auch in \(N\) enthalten sind.
+\[
+	M \cap N = \{x \pipe x \in M \land x \in N\}
+\]
+\(M\) und \(N\) heißen disjunkt, wenn ihr Durchschnitt leer ist, das heißt wenn \(M \cap N = \emptyset\).
+\begin{center}
+	\begin{tikzpicture}
+		\begin{scope}
+			\clip (-1,0) circle (2);
+			\fill[fhblue] (1,0) circle (2);
+		\end{scope}
+
+		\draw[black] (-1,0) circle (2) node[text=black, text width=2cm] {\(M\)};
+		\draw[black] (1,0) circle (2) node[text=black, text width=2cm, align=right] {\(N\)};
+
+		\node[text=white] at (0,0) {\(M \cap N\)};
+	\end{tikzpicture}
+\end{center}
+\begin{samepage}
+	Die \begriff{Vereinigung} zweier Mengen \(M\) und \(N\) (Kurzbezeichnung: \(M \cup N\)) ist die
+	Menge der Elemente, die in \(M\) oder in \(N\) enthalten sind.
+	\[
+		M \cup N = \{x \pipe x \in M \lor x \in N\}
+	\]
+	\begin{center}
+		\begin{tikzpicture}
+			\fill[fhblue] (-1,0) circle (2);
+			\fill[fhblue] (1,0) circle (2);
+
+			\draw[black] (-1,0) circle (2) node[text=white, text width=2cm] {\(M\)};
+			\draw[black] (1,0) circle (2) node[text=white, text width=2cm, align=right] {\(N\)};
+
+			\node[text=white] at (0,0) {\(M \cup N\)};
+		\end{tikzpicture}
+	\end{center}
+\end{samepage}
+Die \begriff{Differenzmenge} zweier Mengen \(M\) und \(N\) (Kurzbezeichnung: \(M \backslash N\))
+ist die Menge der Elemente die in M, aber nicht in N enthalten sind.
+\[
+	M \backslash N = \{x \pipe x \in M \land x \notin N\}
+\]
+\begin{center}
+	\begin{tikzpicture}
+		\begin{scope}
+			\clip (-3, -2) rectangle (2, 2)
+			(1,0) circle (2);
+			\fill[fhblue] (-1,0) circle (2);
+		\end{scope}
+
+		\draw[black] (-1,0) circle (2) node[text=white, text width=3cm] {\(\stackon[5mm]{M \backslash N}{M}\)};
+		\draw[black] (1,0) circle (2) node[text=black, text width=2cm, align=right] {\(N\)};
+	\end{tikzpicture}
+\end{center}
+Ist im Umgang mit Mengen eine bestimmte Grundmenge \(G\) vereinbart (bei Zahlen zum Beispiel häufig \(\R\)),
+so wird die Differenzmenge immer im Bezug auf diese Grundmenge gebildet, ohne dass sie explizit
+erwähnt wird. Statt \(G \backslash N\) schreibt man dann \(\overline{N}\) und nennt \(\overline{N}\)
+das \begriff{Komplement} von N.
+
+\newpage
+\begin{beispielenolist}
+	\mbox{}\vspace*{-1cm}
+	\[M=\{\triangle,\bigcirc,\square\}, N=\{\blacksquare, \bigcirc, \square\}\]
+	\begin{alignat*}{3}
+		M \cap N       & = \{\square, \bigcirc\}                          \\
+		M \cup N       & = \{\triangle, \bigcirc, \square, \blacksquare\} \\
+		M \backslash N & = \{\triangle\}
+	\end{alignat*}
+\end{beispielenolist}
+\vspace*{-1cm}
+\begin{samepage}
+	\begin{bemerkung}
+		Für die Mengenoperationen gelten Rechenregeln (vgl. Übung 1.13).
+	\end{bemerkung}
+\end{samepage}
+\überschrift{Quantoren}
+
+\begriff{Quantoren} stellen ein Bindeglied zwischen Aussagelogik und Mengenlehre dar.
+
+An Stelle der Aussage
+\[\textsf{Es gibt ein Element~} x \textsf{~in der Menge~} M \textsf{~mit der Eigenschaft~} E \textsf{.}\]
+schreibt man kurz
+\newcommand{\existsclause}[3]{\exists \; #1 \in #2 \hspace*{5mm} #3}
+\[\existsclause{x}{M}{E}\]
+Das Zeichen \(\exists\) heißt \begriff{Existenzquantor}.
+
+An Stelle der Aussage
+\[\textsf{Für alle~} x \textsf{~in der Menge~} M \textsf{~gilt die Eigenschaft~} E \textsf{.}\]
+schreibt man kurz
+\newcommand{\allclause}[3]{\forall \; #1 \in #2 \hspace*{5mm} #3}
+\[\allclause{x}{M}{E}\]
+Das Zeichen \(\forall\) heißt \begriff{Allquantor}.
+
+\begin{beispielenolist}
+	Die Aussage \textspaced{\(\existsclause{n}{\mathbb{N}}{n<0}\)} ist \falsch, denn natürliche Zahlen sind nicht negativ.
+
+	Die Aussage \textspaced{\(\allclause{x}{\mathbb{Z}}{x \textsf{~ist durch 7 teilbar}}\)}
+	ist \falsch, denn \(8 \in \mathbb{Z}\) und 8 ist nicht durch 7 teilbar.
+\end{beispielenolist}
+
+\überschrift{Unendliche Vereinigung, unendlicher Durchschnitt}
+
+Sei \(I\) eine Menge, die wir als Menge der \begriff{Indizes} bezeichnen (jedes
+Element von \(I\) ist ein \begriff{Index}). Für jedes \(i \in I\) sei eine
+Menge \(M_i\) gegeben. Die Menge \(\bigcup\limits_{i \in I} M_i\), definiert durch
+\[\bigcup\limits_{i \in I} M_i := \{x \pipe \existsclause{i}{I}{x \in M_i}\}\]
+heißt \begriff{unendliche Vereinigung} der Mengen \(M_i\).
+
+Die Menge \(\bigcap\limits_{i \in I} M_i\), definiert durch
+\[\bigcap\limits_{i \in I} M_i := \{x \pipe \allclause{i}{I}{x \in M_i}\}\]
+heißt \begriff{unendlicher Durchschnitt} der Mengen \(M_i\).
+
+\begin{beispiele}
+	\item \(I = \mathbb{N}\), \(M_i = \{x \in \mathbb{R} \pipe 0 < x < \frac{1}{i} \}\).
+	\hspace{5mm} Dann ist \(\bigcap\limits_{i \in I} M_i = \emptyset\)
+	\item \(I = \mathbb{N}\), \(M_i = \{-i, i\}\). \hspace{5mm} Dann ist
+	\(\bigcup\limits_{i \in I} M_i = \mathbb{Z} \backslash \{0\}\)
+	\item \(I = \{\triangle, \bigcirc, \square\}\), \(M_\triangle = \{3\}\),
+	\(M_\bigcirc = \{0\}\), \(M_\square = \{4\}\). \vspace*{2mm} \newline
+	\(\bigcup\limits_{i \in I} M_i = \{3, 0, 4\}\), \(\bigcap\limits_{i \in I} M_i = \emptyset\)
+\end{beispiele}
+
+\begin{definition}[Kartesisches Produkt]
+	Sind \(M\) und \(N\) Mengen, so heißt die Menge \(M \times N\), definiert durch
+	\[M \times N := \{(x, y) \pipe x \in M, y \in N\}\]
+	also die Menge aller \begriff{geordneten Paare} \((x,y)\) mit
+	\(x \in M\) und \(y \in N\), das \newline \begriff{kartesische Produkt} von \(M\) und \(N\).
+\end{definition}
+
+\begin{bemerkungenbsp}
+	\item Geordnet heißt, dass etwa \((1,4)\) und \((4,1)\) verschiedene Elemente
+	von \(\mathbb{N} \times \mathbb{N}\) sind.
+
+	\item \begin{samepage}
+		Das kartesische Produkt ist nicht kommutativ. \newline
+		Beispiel: \(M=\{1,2\}\), \(N=\{a,b,c\}\). Dann gilt
+		\begin{addmargin}[5mm]{0cm}
+			\(M \times N = \{(1,a),(1,b),(1,c),(2,a),(2,b),(2,c)\}\), \newline
+			\(N \times M = \{(a,1),(a,2),(b,1),(b,2),(c,1),(c,2)\}\), \newline
+			das heißt \(M \times N \neq N \times M\). \newline
+		\end{addmargin}
+	\end{samepage}
+	\vspace{-\baselineskip}
+
+	\item Für \(k\) Mengen (\(k \in \mathbb{N}\), \(k \geq 2\)) \(M_1,M_2,\dots ,M_k\)
+	kann man analog das k-fache kartesiche Produkt \(M_1 \times M_2 \times \dots
+	\times M_k = \{(x_1, x_2, \dots , x_k) \pipe x_i \in M_i\}\) bilden. Die
+	Elemente dieses Produktes heißen \begriff{geordnete \(k\)-Tupel}. Sind alle
+	Mengen \(M_i\) gleich, \(M_1=M_2=\dots =M_k=M\), so schreibt man
+	\(\underbrace{M \times M \times \dots \times M}_{k\textsf{~mal}} = M^k\).
+
+	\item \begin{samepage} \(\mathbb{R}^2 = \mathbb{R} \times \mathbb{R}\) ist die
+		Menge der kartesischen koordinaten in zwei Dimensionen. Die Elemente von
+		\(\mathbb{R}^2\) können als Punkte im kartesischen Koordinatenssystem in
+		der Ebene aufgefasst werden.
+		\begin{center}
+			\begin{tikzpicture}
+				\begin{axis}[xmin=0, xmax = 5, ymin = 0, ymax = 3,
+						axis lines = middle, enlargelimits = true,
+						xtick distance=1, ytick distance=1,
+						grid=major, grid style={dashed,gray!30},
+						unit vector ratio={1 1}]
+					\draw[dashed] (axis cs:0,2) -- (axis cs:4,2);
+					\draw[dashed] (axis cs:4,0) -- (axis cs:4,2);
+					\node at (axis cs:4,2) {\textbullet};
+					\node[above] at (axis cs:4,2) {\((4,2)\)};
+				\end{axis}
+			\end{tikzpicture}
+		\end{center}
+	\end{samepage}
+\end{bemerkungenbsp}
+
+\subsection{Relationen}
+
+\begin{definition}[Relation]
+	Sind \(M\) und \(N\) Mengen, so heißt eine Teilmenge \(R \subset M \times N\) des
+	kartesischen Produktes von \(M\) und \(N\) eine \begriff{Relation} auf \(M \times N\).
+
+	Ist \(M = N\), so heißt \(R\) kurz eine Relation auf \(M\).
+
+	Statt \((x,y) \in R\) schreibt man auch kurz \(x\,R\;y\).
+\end{definition}
+
+\begin{bemerkung}
+	Relation heißt Beziehung. Eine Relation auf \(M \times N\) beschreibt nämlich eine
+	Beziehung, die zwischen bestimmten Paaren von Elementen der Mengen \(M\) und \(N\)
+	besteht. Als Teilmenge von \(M \times N\) enthält sie genau die Paare \((x,y)\), für
+	die die Beziehung \(x\,R\;y\) gilt.
+\end{bemerkung}
+
+\begin{beispiel}
+	Sei \(S\) die Menge der Studierenden des Fachbereichs ETI und \(F\) die Menge der
+	angebotenen Fächer eines Studienganges. Dann ist die Menge
+	\begin{gather*}
+		B=\{(s,f) \pipe s \in S \textsf{~hat das Fach~} f \in F \textsf{~bestanden}\}\\
+		B \subset S \times F
+	\end{gather*}
+	eine Relation auf \(S \times F\).
+\end{beispiel}
+
+\newcommand{\är}{Äquivalenzrelation}
+\begin{definition}[reflexiv, symmetrisch, transitiv]
+	Es sei \(R\) eine Relation auf der Menge \(M\). \(R\) heißt
+	\begin{enumerate}[label=\alph*)]
+		\item \begriff{reflexiv}, wenn für alle \(x \in M\) gilt \(x\,R\;x\),
+		\item \begriff{symmetrisch}, wenn für alle \(x,y \in M\) gilt \(x\,R\;y \implies y\,R\;x\),
+		\item \begriff{transitiv}, wenn für alle \(x,y,z \in M\) gilt \(x\,R\;y \land y\,R\;z \implies x\,R\;z\).
+	\end{enumerate}
+
+	Eine Relation heißt \begriff{\är}, wenn sie reflexiv, symmetrisch und transitiv ist.
+\end{definition}
+
+\begin{beispiele}
+	\item Unter den Vergleichsoperatoren \(\leq, <, \geq, >, \neq, =\) für reelle Zahlen ist nur
+	\(=\) eine \är ~auf \(\R\). Beispielsweise ist
+	\begin{itemize}
+		\item \(<\) nicht reflexiv, denn \(x < x\) ist nicht für alle \(x \in \R\) \wahr ~(nicht einmal
+		      für irgendein \(x\))
+		\item \(\geq\) nicht symmetrisch, denn \(x \geq y \implies y \geq x\) ist nicht für alle \(x,y \in \R\)
+		      \wahr ~(z.B. nicht für \(x=17\), \(y=3\))
+		\item \(\neq\) nicht transitiv, denn \(x \neq y \land y \neq z \implies x \neq z\) ist nicht
+		      für alle \(x,y,z \in \R\) \wahr ~(z.B. nicht für \(x=3\), \(y=7\), \(z=3\))
+	\end{itemize}
+
+	\newpage
+	\item \(\equiv_3 \;:= \{(b, b') \in \Z^2 \pipe b'-b \textsf{~ist durch 3 teilbar}\}\)
+	ist eine \är. Beweis:
+	\begin{enumerate}[label=\alph*)]
+		\item Reflexivität: \\
+		      \(b \equiv_3 b \equivalent 0\) ist durch 3 teilbar, und Letzteres ist für alle
+		      \(b \in \Z\) \wahr. Also ist \(\equiv_3\) reflexiv.
+
+		\item Symmetrie:
+		      \begin{alignat*}{3}
+			      b \equiv_3 b' & \implies b' - b \textsf{~ist durch 3 teilbar}                    \\
+			                    & \implies b' - b = k \cdot 3 \textsf{~mit~} k \in \Z              \\
+			                    & \implies b - b' = (-k) \cdot 3 \textsf{~mit~} k \in \Z           \\
+			                    & \implies b - b' = l \cdot 3 \textsf{~mit~} l \in \Z \;\;(l = -k) \\
+			                    & \implies b - b' \textsf{~ist durch 3 teilbar}                    \\
+			                    & \implies b' \equiv_3 b
+		      \end{alignat*}
+		      Also ist \(\equiv_3\) symmetrisch.
+
+		\item Transitivität:
+		      \begin{alignat*}{3}
+			      b \equiv_3 b' \land b' \equiv_3 b & \implies b' - b \textsf{~und~} b'' - b' \textsf{~sind durch 3 teilbar}                      \\
+			                                        & \implies b' - b = k \cdot 3 \textsf{~und~} b'' - b' = k' \cdot 3 \textsf{~mit~} k,k' \in \Z \\
+			                                        & \implies b'' - b = (k + k') \cdot 3                                                         \\
+			                                        & \implies b'' - b = l \cdot 3 \textsf{~mit~} l \in \Z \;\;(l = k + k')                       \\
+			                                        & \implies b'' - b \textsf{~ist durch 3 teilbar}                                              \\
+			                                        & \implies b \equiv_3 b'' \textsf{~für alle~} b, b', b'' \in \Z
+		      \end{alignat*}
+		      Also ist \(\equiv_3\) transitiv.
+	\end{enumerate}
+	Da \(\equiv_3\) reflexiv, symmetrisch und transitiv ist, ist \(\equiv_3\) eine \är.
+
+	\qed
+\end{beispiele}
+
+\newcommand{\äk}{Äquivalenzklasse}
+\newcommand{\äkn}{Äquivalenzklassen}
+Eine \är ~\(\sim\) auf einer Menge \(X\) zerlegt \(X\) in sogenannte \äkn.
+
+\newpage
+\begin{definition}[\äk]
+	Ist \(\sim\) eine \är ~auf der Menge \(X\) und \(a \in X\), so heißt die Menge
+	\[
+		[a]_\sim := \{x \in X \pipe x \sim a\}
+	\]
+	die \begriff{\äk} von \(\sim\) mit dem \begriff{Repräsentanten} (oder \begriff{Vertreter}) \(a\).
+\end{definition}
+
+\begin{bemerkung}
+	\([a]_\sim\) ist also die Menge aller Elemente von \(X\), die zu \(a\) in der Relation \(\sim\) stehen,
+	darunter \(a\) selbst.
+\end{bemerkung}
+
+\begin{satz}
+	Es sei \(X\) eine nichtleere Menge und \(\sim\) eine \är ~auf \(X\). Die Menge aller
+	\äkn ~von \(\sim\) stellt eine \begriff{Partition} (oder \begriff{Zerlegung}) von \(X\) dar,
+	das heißt
+	\begin{enumerate}
+		\item alle \äkn ~sind nichtleer,
+		\item je zwei verschiedene \äkn ~sind disjunkt,
+		\item die Vereinigung aller \äkn ~ist gleich \(X\).
+	\end{enumerate}
+\end{satz}
+
+\begin{beispiel}[Restklassen]
+	Zur \är ~\(\equiv_3\) gibt es genau drei \äkn:
+	\begin{alignat*}{3}
+		[0]_{\equiv_3} & = \{\dots,-6,-3,0,3,6,9,\dots\}  \\
+		[1]_{\equiv_3} & = \{\dots,-5,-2,1,4,7,10,\dots\} \\
+		[2]_{\equiv_3} & = \{\dots,-4,-1,2,5,8,11,\dots\}
+	\end{alignat*}
+	Sie sind nichtleer, paarweise disjunkt, und es gilt
+	\[
+		[0]_{\equiv_3} \cup [1]_{\equiv_3} \cup [2]_{\equiv_3} = \bigcup^2_{i=0} \; [i]_{\equiv_3} = \Z
+	\]
+	das heißt die \äkn ~\([i]_{\equiv_3}\) (\(i=0,1,2\)) bilden eine Partition von \(\Z\). Sie
+	heißen \begriff{Restklassen modulo 3}.
+
+	Allgemeiner bezeichnet man für \(n \in \N\) die \(n\) verschiedenen
+	\äkn ~\([i]_{\equiv_n}\) (\(i=0,\dots,n-1\)) der \är
+	\[
+		\equiv_n := \{(b,b') \in \Z \pipe (b' - b) \textsf{~ist durch~} n \textsf{~teilbar}\}
+	\]
+	als die \begriff{Restklassen modulo n}.
+\end{beispiel}
+
+\subsection{Abbildungen}
+
+\newcommand{\abb}{Abbildung}
+\newcommand{\abbn}{Abbildungen}
+\newcommand{\nach}{\rightarrow}
+\begin{definition}[\abb]
+	Gegeben seien zwei Mengen \(M\) und \(N\) und eine Zuordnungsvorschrift, die jedem\\
+	\(x \in M\) genau ein \(y \in N\) zuordnet. Dann ist durch \(M,N\) und diese
+	Zuordnungsvorschrift eine \begriff{\abb} ~\(f\) gegeben.
+
+	Man schreibt
+	\begin{alignat*}{3}
+		               & f: M \nach N      &  & \textsf{~mit~} x \mapsto f(x)              \\
+		\textsf{oder~} & f: x \mapsto f(x) &  & \textsf{~mit~} x \in M, f(x) \in N         \\
+		\textsf{oder~} & y = f(x)          &  & \textsf{~mit~} x \in M, y \in N \textsf{.}
+	\end{alignat*}
+\end{definition}
+
+\überschrift{Sprechweisen und Notationen}
+
+Man nennt \(f\) die durch \(y = f(x)\) definierte Abbildung von \(M\) nach \(N\). Vor allem wenn
+\(M\) und \(N\) Teilmengen von \(\R\) sind, nennt man \abbn	auch Funktionen. Weiter nennt man
+
+\begin{tabular}{p{0.3\textwidth}>{\arraybackslash}p{0.6\textwidth}}
+	\(x\)                          & \begriff{Argument}, \begriff{Variable} von \(f\)                                                                                                          \\
+	\(y\), \(f(x)\)                & \begriff{Wert} oder \begriff{Funktionswert} von \(f\) an der Stelle \(x\) oder bei \(x\), \begriff{Bild} von \(x\) (\(x\) ist \begriff{Urblid} von \(y\)) \\
+	\(x \mapsto f(x)\), \(y=f(x)\) & \begriff{Zuordnungsvorschrift} für \(f\)                                                                                                                  \\
+	\(M\),\(D_f\)                  & \begriff{Definitionsmenge} von \(f\)                                                                                                                      \\
+	\(N\)                          & \begriff{Zielmenge} von \(f\)
+\end{tabular}
+
+Zwei \abbn ~\(f: M \nach N\) und \(g: U \nach V\) heißen gleich, wenn
+\(M=U\), \(N=V\) und \(f(x)=g(x)\) für alle \(x \in M\). Man schreibt dann \(f = g\).
+
+Die Bezeichnung der Variablen in der Zuordnungsvorschrift, das heißt die Wahl der Buchstaben
+ist beliebig. So bedeuten folgende Zuordnungsvorschriften alle das gleiche:
+\[
+	x \mapsto x^2 \qquad v \mapsto v^2 \qquad y \mapsto y^2
+\]
+Die Menge aller Funktionswerte \(f(x)\) mit \(x \in M\) heißt \begriff{Bildmenge} oder
+\begriff{Wertemenge} von \(f\) und wird mit \(f(M)\) oder \(W_f\) bezeichnet, also
+\[
+	f(M) = \{y \in N \pipe \existsclause{x}{M}{f(x)=y}\}
+\]
+
+Ist \(U \subset M\) eine Teilmenge der Definitionsmenge, so heißt die Menge
+aller Funktionswerte \(f(x)\) mit \(x \in U\) das \begriff{Bild} von \(U\)
+und wird mit \(f(U)\) bezeichnet, also
+\[
+	f(U) = \{y \in N \pipe \existsclause{x}{U}{f(x)=y}\}
+\]
+
+Ist \(V \subset N\) eine Teilmenge der Zielmenge, so heißt die Menge aller
+Argumente \(x \in M\) mit \(f(x) \in V\) das \begriff{Urbild} von \(V\) und
+wird mit \(f^{-1}(V)\) bezeichnet, also
+\[
+	f^{-1}(V) = \{x \in M \pipe f(x) \in V\}
+\]
+
+\begin{beispiele}
+	\item Die Zuordnungsvorschrift \(x \mapsto y\) mit \(y^2 = x\) definiert keine Abbildung
+	von \(\R\) nach \(\R\), weil zum Beispiel \(x = -1\) kein \(y \in \R\) zugeordnet ist,
+	und weil \(x = 4\) mit \(y = 2\) und \(y = -2\) zwei \(y \in \R\) zugeordnet sind.
+
+	Ebenso definiert die Zuordnungsvorschrift \(x \mapsto \frac{x+1}{x}\) keine \abb ~von
+	\(\R\) nach \(\R\), weil \(x = 0\) kein Funktionswert zugeordnet ist. Durch
+	\(f: \N \nach \R\) mit \(x \mapsto \frac{x+1}{x}\) ist hingegen eine \abb	~von
+	\(\N\) nach \(\R\) definiert.
+
+	\newpage
+	\item Die folgende Grafik beschreibt eine \abb ~\(f\):
+	\begin{center}
+		\begin{tikzpicture}[-latex]
+			\draw (-3,0) circle (2);
+
+			\node[left] at (-5,0) {\(M\)};
+			\node at (-4,1) {\textbullet};
+			\node[below left] at (-4,1) {\(a\)};
+			\node at (-4,-1) {\textbullet};
+			\node[above left] at (-4,-1) {\(c\)};
+			\node at (-2,1) {\textbullet};
+			\node[below left] at (-2,1) {\(b\)};
+			\node at (-2,-1) {\textbullet};
+			\node[above left] at (-2,-1) {\(d\)};
+
+			\draw (3,0) circle (2);
+
+			\node[right] at (5,0) {\(N\)};
+			\node at (2,1) {\textbullet};
+			\node[below right] at (2,1) {\(1\)};
+			\node at (4,0) {\textbullet};
+			\node[right] at (4,0) {\(2\)};
+			\node at (2,-1) {\textbullet};
+			\node[above right] at (2,-1) {\(3\)};
+
+			\node[above] at (0,2) {\(f\)};
+
+			\path (-4,1) edge[bend left] (1.9,1.1);
+			\path (-2,1) edge[bend right] (1.9,0.9);
+			\path (-4,-1) edge[bend right] (1.9,-1.1);
+			\path (-2,-1) edge[bend left] (1.9,-0.9);
+		\end{tikzpicture}
+	\end{center}
+	\abb ~\(f\) mit \(M=\{a,b,c,d\}\), \(N=\{1,2,3\}\), \(f(M)=\{1,3\} \neq N\).
+
+	\(1\) ist Bild von \(a\) und \(b\). \(3\) ist Bild von \(c\) und \(d\). \(a\) und \(b\)
+	sind Urbilder von \(1\). \(c\) und \(d\) sind Urbilder von \(3\). \(2\) hat kein Urbild.
+
+	Das Bild von \(U=\{a,b\}\) ist \(f(U)=\{1\}\).
+	Das Urbild von \(V=\{2\}\) ist \(f^{-1}(V)=\emptyset\).
+	Das Urbild von \(V'=\{2,3\}\) ist \(f^{-1}(V')=\{c,d\}\).
+
+	Dagegen ist
+	\begin{center}
+		\begin{tikzpicture}[-latex]
+			\draw (-3,0) circle (2);
+
+			\node[left] at (-5,0) {\(M\)};
+			\node at (-4,1) {\textbullet};
+			\node[below left] at (-4,1) {\(a\)};
+			\node at (-4,-1) {\textbullet};
+			\node[above left] at (-4,-1) {\(c\)};
+			\node at (-2,1) {\textbullet};
+			\node[below left] at (-2,1) {\(b\)};
+			\node at (-2,-1) {\textbullet};
+			\node[above left] at (-2,-1) {\(d\)};
+
+			\draw (3,0) circle (2);
+
+			\node[right] at (5,0) {\(N\)};
+			\node at (2,1) {\textbullet};
+			\node[below right] at (2,1) {\(1\)};
+			\node at (4,0) {\textbullet};
+			\node[right] at (4,0) {\(2\)};
+			\node at (2,-1) {\textbullet};
+			\node[above right] at (2,-1) {\(3\)};
+
+			\node[above] at (0,2) {\(f\)};
+
+			\path (-4,1) edge[bend left] (1.9,1.1);
+			\path (-2,1) edge[bend right] (1.9,0.9);
+			\path (-4,-1) edge[bend left] (1.9,-0.9);
+			\path (-4,-1) edge[bend right] (3.9,-0.1);
+		\end{tikzpicture}
+	\end{center}
+	keine \abb:
+	\begin{itemize}
+		\item \(d\) hat kein Bild
+		\item \(c\) hat zwei Bilder
+	\end{itemize}
+
+	\item Durch die Zuordnung \(f:\{\textsf{a},\textsf{b},\textsf{c},\dots,\textsf{z}\} \nach \N\) mit
+	\begin{center}
+		\begin{tabular}{c || c | c | c | c | c}
+			\(x\)    & a      & b      & c      & \dots & z     \\
+			\hline
+			\(f(x)\) & \(26\) & \(25\) & \(24\) & \dots & \(1\)
+		\end{tabular}
+	\end{center}
+	ist eine \abb ~definiert.
+\end{beispiele}
+
+\newpage
+\begin{definition}[injektiv, surjektiv, bijektiv]
+	Es sei \(f: M \nach N\) eine \abb. \(f\) heißt
+	\begin{enumerate}[label=\alph*)]
+		\item \begriff{injektiv}, wenn für alle \(x_1,x_2\in M\) gilt:
+		      \[
+			      x_1 \neq x_2 \implies f(x_1) \neq f(x_2)
+		      \]
+		\item \begriff{surjektiv}, wenn für jedes \(y \in N\) ein \(x \in M\)
+		      existiert mit \(f(x) = y\):
+		      \[
+			      \allclause{y}{N}{\existsclause{x}{M}{f(x) = y}}
+		      \]
+		\item \begriff{bijektiv}, wenn \(f\) injektiv und surjektiv ist.
+	\end{enumerate}
+\end{definition}
+
+\begin{bemerkungennolist}
+	Bei einer injektiven \abb ~werden verschiedene Elemente der Definitionsmenge
+	stets auf verschiedene Elemente der Zielmenge abgebildet.
+
+	Bei einer surjektiven \abb ~hat jedes Element der Zielmenge ein Urbild, und
+	damit ist die Zielmenge gleich der Wertemenge.
+\end{bemerkungennolist}
+
+\begin{beispiele}
+	\item Die folgenden \abbn ~sind:
+	\begin{center}\setlength{\tabcolsep}{5mm}
+		\begin{tabular}{c c}
+			\begin{tikzpicture}[-latex, scale=0.5]
+				\draw (-3,0) circle (2);
+
+				\node[left] at (-5,0) {\(M\)};
+				\node at (-3,1) {\textbullet};
+				\node at (-3,-1) {\textbullet};
+
+				\draw (3,0) circle (2);
+
+				\node[right] at (5,0) {\(N\)};
+				\node at (3,1) {\textbullet};
+				\node at (3,-1) {\textbullet};
+
+				\node at (0,0) {\(f\)};
+
+				\path (-3,1) edge[bend left] (2.9,1.1);
+				\path (-3,-1) edge[bend right] (2.9,0.9);
+
+				\node[below] at (0,-2) {nicht injektiv, nicht surjektiv};
+			\end{tikzpicture}
+			 &
+			\begin{tikzpicture}[-latex, scale=0.5]
+				\draw (-3,0) circle (2);
+
+				\node[left] at (-5,0) {\(M\)};
+				\node at (-3,1) {\textbullet};
+				\node at (-3,-1) {\textbullet};
+
+				\draw (3,0) circle (2);
+
+				\node[right] at (5,0) {\(N\)};
+				\node at (3,0) {\textbullet};
+
+				\node at (0,0) {\(f\)};
+
+				\path (-3,1) edge[bend left] (2.9,0.1);
+				\path (-3,-1) edge[bend right] (2.9,-0.1);
+
+				\node[below] at (0,-2) {nicht injektiv, surjektiv};
+			\end{tikzpicture}
+			\\
+			\begin{tikzpicture}[-latex, scale=0.5]
+				\draw (-3,0) circle (2);
+
+				\node[left] at (-5,0) {\(M\)};
+				\node at (-3,1) {\textbullet};
+				\node at (-3,-1) {\textbullet};
+
+				\draw (3,0) circle (2);
+
+				\node[right] at (5,0) {\(N\)};
+				\node at (2.5,1) {\textbullet};
+				\node at (2.5,-1) {\textbullet};
+				\node at (4,0) {\textbullet};
+
+				\node at (0,0) {\(f\)};
+
+				\path (-3,1) edge[bend left] (2.4,1.1);
+				\path (-3,-1) edge[bend right] (2.4,-1.1);
+
+				\node[below] at (0,-2) {injektiv, nicht surjektiv};
+			\end{tikzpicture}
+			 &
+			\begin{tikzpicture}[-latex, scale=0.5]
+				\draw (-3,0) circle (2);
+
+				\node[left] at (-5,0) {\(M\)};
+				\node at (-3,1) {\textbullet};
+				\node at (-3,-1) {\textbullet};
+
+				\draw (3,0) circle (2);
+
+				\node[right] at (5,0) {\(N\)};
+				\node at (3,1) {\textbullet};
+				\node at (3,-1) {\textbullet};
+
+				\node at (0,0) {\(f\)};
+
+				\path (-3,1) edge[bend left] (2.9,1.1);
+				\path (-3,-1) edge[bend right] (2.9,-1.1);
+
+				\node[below] at (0,-2) {injektiv, surjektiv};
+			\end{tikzpicture}
+		\end{tabular}
+	\end{center}
+
+	\item Die \abb ~\(g: \N^2 \nach \N\), \((m,n) \mapsto \textrm{ggt}(m,n)\) ordnet
+	jedem Paar zweier natürlicher Zahlen ihren größten gemeinsamen Teiler zu.
+
+	Die \abb ~ist surjektiv, denn \(\textrm{ggt}(n,n)=n\).
+
+	Sie ist nicht injektiv, denn \(\textrm{ggt}\underbrace{(3,6)}_{\in \N^2}=\textrm{ggt}\underbrace{(9,12)}_{\in \N^2}\)
+	\begin{align*}
+		(3,6) \neq (9,12) & \stackon{\implies}{\text{\Lightning}} \textrm{ggt}(3,6) \neq \textrm{ggt}(9,12) \\
+		                  & \stackon{\implies}{\text{\Lightning}} 3 \neq 3
+	\end{align*}
+\end{beispiele}
+
+\begin{definition}[Umkehrabbildung]
+	Ist \(f: M \nach N\), \(x \mapsto f(x)\) eine bijektive \abb, so wird
+	durch \(g: N \nach M\), \(y \mapsto x\) mit \(y = f(x)\) eine \abb ~definiert.
+	\(g\) heißt \begriff{Umkehrabbildung} oder \begriff{inverse \abb} zu \(f\) und
+	man sagt, \(f\) sei umkehrbar. Die Umkehrabbildung wird mit \(f^{-1}\) bezeichnet.
+\end{definition}
+
+\end{document}
